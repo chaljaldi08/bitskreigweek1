@@ -1,31 +1,36 @@
-# CanYouSee
+# Red
 
 # Approach
 
-I started by treating the provided file as a forensics challenge and looked for information that might not be visible directly from the file.
-I used online forensic tools to inspect the challenge data and look for hidden information. The analysis pointed towards data being within the challenge material rather than being directly visible.
+The image looked  completely red so there was not much useful information from just looking at it.
 
-I also used AI to understand what the forensic outputs meant and how to interpret the hidden data. I then verified the extracted result myself.
+I first checked the file and its metadata. The metadata contained a poem. After analysing i understood that we had to take  the first letter of each line.
+
+
+CHECKLSB
+
+This suggested that the flag was hidden using the least significant bits of the image pixels.(took help from ai)
 
 # Solution
 
-I used an online forensic analyzer to examine the file. I inspected the generated results for hidden or embedded data and used the relevant output to recover the flag.
+I checked the image as an RGBA image and extracted the least significant bit from each channel.
 
-The extracted flag was:
-academy{ME74D47A_HIDD3N_aebe8c0f}
-# Tools Used
+The basic idea was to get the data by putting the image on online tools to get lsb info about it
+I used APERI'SOLVE.com to get 
 
-Online forensic analyzer
-Decoding tool where required
+This produced a Base64 string:
+cGljb0NURntyM2RfMXNfdGgzX3VsdDFtNHQzX2N1cjNfZjByXzU0ZG4zNTVffQ==
 
-# AI Assistance
-
-I used AI to understand the purpose of the forensic techniques and to help interpret the tool output. It helped me understand where to look for hidden data and how the extracted information could be decoded. I then followed the process myself and verified the final flag.
-
+I decoded it by just putting it in a decoder and out then was the flag itself
 # Flag
 
-academy{ME74D47A_HIDD3N_aebe8c0f}
+
+picoCTF{r3d_1s_th3_ult1m4t3_cur3_f0r_54dn355_}
 
 # Takeaway
 
-In forensic CTFs we must  always inspect files for hidden data and metadata before assuming that what is visibly shown is the complete information
+If an image looks empty or uniform, check its metadata first and look for LSB steganography when the file gives a clue like CHECKLSB.
+
+# AI Help
+
+I used AI to understand how LSB steganography works and how to extract the least significant bits from the RGBA channels. I also used it to understand how the metadata clue pointed towards LSB extraction. After checking the steps myself, I understood that the hidden bits form bytes, which in this challenge produce a Base64 string that has to be decoded to get the flag.
